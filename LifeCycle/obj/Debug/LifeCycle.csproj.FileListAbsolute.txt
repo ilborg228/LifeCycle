@@ -1,0 +1,10 @@
+C:\Users\qwert\source\repos\LifeCycle\LifeCycle\bin\Debug\LifeCycle.exe.config
+C:\Users\qwert\source\repos\LifeCycle\LifeCycle\bin\Debug\LifeCycle.exe
+C:\Users\qwert\source\repos\LifeCycle\LifeCycle\bin\Debug\LifeCycle.pdb
+C:\Users\qwert\source\repos\LifeCycle\LifeCycle\obj\Debug\LifeCycle.csprojAssemblyReference.cache
+C:\Users\qwert\source\repos\LifeCycle\LifeCycle\obj\Debug\LifeCycle.Form1.resources
+C:\Users\qwert\source\repos\LifeCycle\LifeCycle\obj\Debug\LifeCycle.Properties.Resources.resources
+C:\Users\qwert\source\repos\LifeCycle\LifeCycle\obj\Debug\LifeCycle.csproj.GenerateResource.cache
+C:\Users\qwert\source\repos\LifeCycle\LifeCycle\obj\Debug\LifeCycle.csproj.CoreCompileInputs.cache
+C:\Users\qwert\source\repos\LifeCycle\LifeCycle\obj\Debug\LifeCycle.exe
+C:\Users\qwert\source\repos\LifeCycle\LifeCycle\obj\Debug\LifeCycle.pdb
