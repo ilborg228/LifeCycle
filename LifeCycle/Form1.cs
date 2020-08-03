@@ -24,7 +24,7 @@ namespace LifeCycle
         {
             pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             graphics = Graphics.FromImage(pictureBox1.Image);
-            cells = new Cells(pictureBox1.Width, pictureBox1.Height);
+            cells = new Cells(pictureBox1.Width, pictureBox1.Height,(int)numericUpDown1.Value);
             cells.InitialField();
             for (int y = 0; y < cells.Rows; y++)
             {
@@ -32,7 +32,7 @@ namespace LifeCycle
                 {
                     if (cells.Field[y,x])
                     {
-                        graphics.FillRectangle(Brushes.Crimson, x * 5, y * 5, 5, 5);
+                        graphics.FillRectangle(Brushes.Crimson, x * cells.Size, y * cells.Size, cells.Size, cells.Size);
                     }
                 }
             }
@@ -57,7 +57,8 @@ namespace LifeCycle
                         newField[y, x] = cells.Field[y, x];
                     if (hasLife)
                     {
-                        graphics.FillRectangle(Brushes.Crimson, x * 5, y * 5, 5, 5);
+                        graphics.FillRectangle(Brushes.Crimson,
+                            x * cells.Size, y * cells.Size, cells.Size, cells.Size);
                     }
                 }
             }
@@ -73,6 +74,24 @@ namespace LifeCycle
         private void bStop_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!timer1.Enabled)
+                return;
+            if (e.Button == MouseButtons.Left)
+            {
+                var x = e.Location.X / cells.Size;
+                var y = e.Location.Y / cells.Size;
+                cells.Field[y, x] = true;
+            }
+            if (e.Button == MouseButtons.Right)
+            {
+                var x = e.Location.X / cells.Size;
+                var y = e.Location.Y / cells.Size;
+                cells.Field[y, x] = false;
+            }
         }
     }
 }

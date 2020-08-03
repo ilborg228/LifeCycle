@@ -9,10 +9,10 @@ namespace LifeCycle
 {
     class Cells
     {
-        int rows;
-        int columns;
-        bool[,] field;
-        int[,] neighbors;
+        private int rows;
+        private int columns;
+        private int size;
+        private bool[,] field;
         public bool[,] Field
         {
             get
@@ -47,12 +47,22 @@ namespace LifeCycle
             }
         }
 
+        public int Size { get { return size; }}
+
+        public Cells(int width, int height, int size)
+        {
+            this.size = size;
+            rows = height / size;
+            columns = width / size;
+            field = new bool[rows, columns];
+        }
+
         public Cells(int width,int height)
         {
-            rows = height/5; 
-            columns = width/5;
+            size = 10;
+            rows = height/size; 
+            columns = width/size;
             field = new bool[rows, columns];
-            neighbors = new int[rows, columns];
         }
 
         public void InitialField()
@@ -62,7 +72,7 @@ namespace LifeCycle
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    field[i, j] = random.Next(5) == 0;
+                    field[i, j] = random.Next(7) == 0;
                 }
             }
         }
@@ -77,7 +87,7 @@ namespace LifeCycle
                     int column = (x + j + columns) % columns;
                     int row = (y + i + rows) % rows;
                     bool self = column == x && row == y;
-                    if (field[row,column] && field[y,x] == field[row,column] && !self)
+                    if (field[row,column] && !self)
                         count++;
                 }
             }
