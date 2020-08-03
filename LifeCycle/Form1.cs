@@ -14,28 +14,37 @@ namespace LifeCycle
     {
         private Graphics graphics;
         Cells cells;
+        bool startGame;
 
         public Form1()
         {
             InitializeComponent();
+            pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            graphics = Graphics.FromImage(pictureBox1.Image);
+            cells = new Cells(pictureBox1.Width, pictureBox1.Height, (int)numericUpDown1.Value);
+            graphics.Clear(Color.Black);
+            startGame = true;
         }
 
         private void StartGame()
         {
-            pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            graphics = Graphics.FromImage(pictureBox1.Image);
-            cells = new Cells(pictureBox1.Width, pictureBox1.Height,(int)numericUpDown1.Value);
+            startGame = false;
             cells.InitialField();
-            for (int y = 0; y < cells.Rows; y++)
+            for (int i = 0; i < cells.Rows; i++)
             {
-                for (int x = 0; x < cells.Columns; x++)
+                for (int j = 0; j < cells.Columns; j++)
                 {
-                    if (cells.Field[y,x])
+                    if (cells.Field[i,j])
                     {
-                        graphics.FillRectangle(Brushes.Crimson, x * cells.Size, y * cells.Size, cells.Size, cells.Size);
+                        graphics.FillRectangle(Brushes.Crimson,
+                            j * cells.Size, i * cells.Size, cells.Size, cells.Size);
                     }
                 }
             }
+            timer1.Enabled = true;
+        }
+        private void ContinueGame()
+        {
             timer1.Enabled = true;
         }
 
@@ -43,22 +52,22 @@ namespace LifeCycle
         {
             graphics.Clear(Color.Black);
             bool[,] newField = new bool[cells.Rows, cells.Columns];
-            for (int y = 0; y < cells.Rows; y++)
+            for (int i = 0; i < cells.Rows; i++)
             {
-                for (int x = 0; x < cells.Columns; x++)
+                for (int j = 0; j < cells.Columns; j++)
                 {
-                    bool hasLife = cells.Field[y,x];
-                    int countNeighbors=cells.CountNeighbors(x,y);
+                    bool hasLife = cells.Field[i,j];
+                    int countNeighbors=cells.CountNeighbors(j,i);
                     if (!hasLife && countNeighbors == 3)
-                        newField[y, x] = true;
+                        newField[i, j] = true;
                     else if (hasLife && (countNeighbors < 2 || countNeighbors > 3))
-                        newField[y, x] = false;
+                        newField[i, j] = false;
                     else
-                        newField[y, x] = cells.Field[y, x];
+                        newField[i, j] = cells.Field[i, j];
                     if (hasLife)
                     {
                         graphics.FillRectangle(Brushes.Crimson,
-                            x * cells.Size, y * cells.Size, cells.Size, cells.Size);
+                            j * cells.Size, i * cells.Size, cells.Size, cells.Size);
                     }
                 }
             }
@@ -68,12 +77,20 @@ namespace LifeCycle
 
         private void bStart_Click(object sender, EventArgs e)
         {
-            StartGame();
+            bStart.Enabled = false;
+            bStop.Enabled = true;
+            if (startGame)
+                StartGame();
+            else
+                ContinueGame();
         }
+
 
         private void bStop_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
+            bStart.Enabled = true;
+            bStop.Enabled = false;
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)

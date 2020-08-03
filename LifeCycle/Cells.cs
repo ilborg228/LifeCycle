@@ -13,6 +13,7 @@ namespace LifeCycle
         private int columns;
         private int size;
         private bool[,] field;
+
         public bool[,] Field
         {
             get
@@ -30,10 +31,6 @@ namespace LifeCycle
             {
                 return rows;
             }
-            set
-            {
-                rows = value;
-            }
         }
         public int Columns
         {
@@ -41,13 +38,14 @@ namespace LifeCycle
             {
                 return columns;
             }
-            set
-            {
-                columns = value;
-            }
         }
 
-        public int Size { get { return size; }}
+        public int Size { 
+            get 
+            { 
+                return size; 
+            }
+        }
 
         public Cells(int width, int height, int size)
         {
